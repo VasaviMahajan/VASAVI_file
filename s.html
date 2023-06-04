@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Indic Language Application</title>
+	<style>
+		<link rel="stylesheet" type="text/css" href="file.css" media=”screen” />
+	</style>
+</head>
+<body>
+	<h1>Indic Language Application</h1>
+	<form onsubmit="download(this['name'].value, this['text'].value)">
+        <input type="text" name="name" placeholder="Enter your file name" required>
+        <textarea name="text" id="text" cols="30" rows="10" value="" placeholder="Enter a text"></textarea>
+        <input type="file" id="myfile">
+        <input type="submit" value="SAVE">  
+        <input type="button" value="Convert to sentence" onclick="wawa()" /> 
+        <div id="alert" style="color: red"></div>       
+    </form>	
+    <h1 id="demo">Text Sentences</h1>
+    <script language="Javascript" >
+      document.getElementById('myfile').addEventListener('change', function() {
+      var GetFile = new FileReader();
+      GetFile .onload=function(){
+      document.getElementById('text').value= GetFile.result;
+    }
+    GetFile.readAsText(this.files[0]);
+    })
+      let variable;
+      function wawa() {
+          variable = document.getElementById('text').value;
+          console.log(variable);
+          const a = variable.split(".");
+              var text="";
+              for(let i=0;i<a.length;i++){
+                text+=i+1+"->"+a[i]+"<br>";
+              }
+              document.getElementById("demo").innerHTML =text;
+        }
+        function download(filename, text) {
+          var pom = document.createElement('a');
+          pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + 
+        encodeURIComponent(text));
+          pom.setAttribute('download', filename);
+          pom.style.display = 'none';
+          document.body.appendChild(pom);
+          pom.click();
+          document.body.removeChild(pom);
+        }
+    </script>
+</body>		
+</html>
